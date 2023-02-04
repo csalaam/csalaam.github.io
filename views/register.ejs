@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <title>Register</title>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">Register</h1>
+    </div>
+    <form action="/register" method="POST">
+        <div>
+            <label for="name">
+                Name
+            </label>
+            <input autocomplete="off" type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="email">
+                Email
+            </label>
+            <input autocomplete="off" type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">
+                Password
+            </label>
+            <input autocomplete="off" type="password" id="password" name="password" required>
+        </div>
+        <div class="registerdiv">
+        <button type="submit" class="login">Register</button>
+        </div>
+    </form>
+    <div class="registerdiv">
+        <a class="reg" href="/login">Back To Login</a>
+    </div>
+</body>
+</html>
+

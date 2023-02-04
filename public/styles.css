@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe&family=Montserrat&family=Open+Sans:wght@300&family=Poppins&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.error {
+    text-align: center;
+    background-color: red;
+    margin-bottom: 10px;
+    color: white;
+}
+
+form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-image: linear-gradient(
+        rgba(152, 9, 255, 0.8),
+     rgba(255, 0, 255, 0.4)), url(run.png) ;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.box {
+    align-items: center;
+    justify-content: center;
+}
+
+
+label{
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: black;
+    background-color: orange;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.input {
+    width: 100%;
+    text-align: left;
+}
+
+
+input {
+    width: 300px;
+}
+
+.title {
+    text-align: center;
+    width: 100%;
+    color: black;
+    font-weight: bold;
+}
+
+.header {
+    background-color: rgba(40, 0, 40, 0.5);
+    margin-top: 20px ;
+    margin-bottom: 20px;
+    font-size: large;
+    color: black;
+}
+
+button {
+    background-color: purple;
+    color: green;
+    width: 1%;
+    font-weight: bold;
+}
+
+.submit {
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+.login {
+    width: 20%;
+    padding: 10px;
+    background-color: orange;
+    font-weight: bolder;
+    margin-top: 20px;
+    letter-spacing: 2px;
+}
+
+.registerdiv{
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.reg{
+    background-color: purple;
+    border: solid black 2px;
+    width: 20%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: white;
+    justify-content: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+a {
+    padding:1em;
+    text-align: center;
+    display:inline-block;
+    text-decoration: none !important;
+    margin:0 auto;
+}
+
+a:hover {
+    background-color: white;
+    color: green;
+    transition: all 0.3s ease;
+}
+a:active{
+    background-color: green;
+    color: white;
+}
+
+.login:hover {
+    background-color: white;
+    color: green;
+    transition: all 0.3s ease;
+}
+
+.login:active{
+    background-color: green;
+    color: white;
+}
