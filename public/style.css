@@ -98,6 +98,16 @@ li {
     display: none;
 }
 
+#menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    font-size: 32px;
+    cursor: pointer;
+    display: none;
+}
+
 /* Pre-Hero Section */
 
 .center {
