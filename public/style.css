@@ -88,17 +88,7 @@ li {
     background-color:rgba(10, 200, 0, 0.6);
 }
 
-.menu-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    font-size: 32px;
-    cursor: pointer;
-    display: none;
-}
-
-#menu-btn {
+h1>.menu-btn {
     position: absolute;
     top: 20px;
     right: 20px;
