@@ -24,8 +24,8 @@ form {
 
 body {
     background-image: linear-gradient(
-        rgba(152, 9, 255, 0.8),
-     rgba(255, 0, 255, 0.4)), url(run.png) ;
+        rgba(40, 0, 40, 0.8),
+     rgba(100, 50, 100, 0.4)), url('./images/SL_060521_43530_09.jpg') ;
     width: 100vw;
     height: 100vh;
     background-size: cover;
@@ -69,11 +69,12 @@ input {
     text-align: center;
     width: 100%;
     color: black;
+    text-shadow: black 1px 0 1px;;
     font-weight: bold;
 }
 
 .header {
-    background-color: rgba(40, 0, 40, 0.5);
+    background-color: rgba(255, 200, 100, 0.2);
     margin-top: 20px ;
     margin-bottom: 20px;
     font-size: large;
