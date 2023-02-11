@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CASE</title>
+    <link rel="stylesheet" type="text/css" href="/cases.css" />
+    <script
+      src="https://kit.fontawesome.com/9fce7a07c3.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav>
+        <h1 class="title">
+          <a class="case" href="/home">CASE</i></a>
+        </h1>
+        <ul class="nav-link">
+          <li class="last_home"><a class="home" href="/account"><i class="fa-solid fa-gear"></i></a></li>
+          <li><a class="home" href="/home"><i class="fa-solid fa-house"></i></a></li>
+          <li><a class="home login" href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+        </ul>
+        <h1><i class="fa-solid fa-suitcase menu-btn"></i></h1>
+      </nav>
+      <main>
+        <h1 class="index-title">User Index</h1>
+          <div class="box">
+          <form action="/cases" method="GET" class="form">
+                <input type="search" name="q" value="<%= q %>"placeholder="search for users" id="searchbar">
+                <input type="submit" class="form-submit" value="Search">
+          </form>
+              </div>
+              <h1 class="user-title" style="color: white;">Users with the Name "<%= q %>"</h1>
+              <% if (users.length === 0) { %>
+              <p style="color: white;">No results found.</p>
+              <% } else { %>
+              <ul class="users">
+                <% for (const user of users) { %>
+            <li class="user-section">
+                <h2 class="username"><%= user.name %></h2>
+                <h3 class="description">Viewer Sentiment: <%= user.viewersentiment %></h3>
+            </li>
+                <% } %>
+              </ul>
+            <% } %>
+              <div class="wrapper">
+            <footer>
+                <h3 class="foot-title">Coordinated Applicative Science Engine</h3>
+                <ul class="footer">
+                    <li><a class="foot-link" href="#">About</a></li>
+                    <li><a class="foot-link" href="#">Index</a></li>
+                    <li><a class="foot-link" href="/support">Support</a></li>
+                </ul>
+                <p class="copyright">Cee Allah Salaam</p>
+            </footer>
+              </div>
+      </main>
+    <script>
+        const menuBtn = document.querySelector('.menu-btn')
+        const navlink = document.querySelector('.nav-link')
+    
+        menuBtn.addEventListener('click', () => {
+          navlink.classList.toggle('mobile-menu')
+        })
+    
+        const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            console.log(entry)
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show')
+            } else {
+                entry.target.classList.remove('show')
+            }
+        })
+    })
+    
+    const hiddenElements = document.querySelectorAll('.hidden')
+    
+    hiddenElements.forEach((el) => observer.observe(el))
+      </script>
+  </body>
+  </html>

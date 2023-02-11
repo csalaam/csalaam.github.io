@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Serif Pro', sans-serif;
+}
+
+body, html {
+    background-color: rgb(40, 0, 40);
+}
+
+header{
+    height: 7%;
+    width: 100%;
+}
+
+/* Navigation Pane */
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 100%;
+    letter-spacing: 9px;
+    font-size: 30px;
+}
+
+.case:link, .case:hover,
+.case:visited  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(242, 175, 98);
+}
+
+i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgb(242, 175, 98);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    background-color: purple;
+}
+
+.nav-link{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+
+}
+
+li {
+    width: 25%;
+    padding: 10px 15px;
+}
+
+.home {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 125px;
+    height: 30px;
+    font-weight:bolder;
+    letter-spacing: 5px;
+    border-radius: 50px;
+}
+
+.home>i {
+    font-size: 32px;
+}
+
+h1>.menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    font-size: 32px;
+    cursor: pointer;
+    display: none;
+}
+
+.update {
+    color: white;
+    text-align: center;
+    background-color: rgb(40, 0, 120);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-right: 7px solid orange;
+    border-top: 7px solid orange;
+    border-left: 7px solid white;
+}
+
+.form-submit {
+    margin: 50px auto;
+    background-color: orange;
+    width: 150px;
+    height: 50px;
+    border-color: white;
+    border-style: solid;
+}
+
+.form-submit:hover {
+    background-color: green;
+    color: white;
+}
+
+.form-submit:active {
+    outline:7px solid rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: purple;
+    color: white;
+    width: 100%;
+    height: 333px;
+    padding: 50px;
+
+}
+
+form {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(40, 0, 120);
+    padding-top: 20px;
+    border-right: 7px solid orange;
+    border-left: 7px solid orange;
+    border-bottom: 7px solid orange;
+}
+
+label, input {
+    display: block;
+    width: 200px;
+    margin: 10px;
+    text-align: center;
+}
+
+label {
+    text-align: left;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-top: 3px solid orange;
+    background-color: black;
+    height: 200px;
+    width: 100%;
+}
+
+.foot-link {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: orange;
+    height: 100%;
+    width: 100px;
+    border-radius: 50px;
+}
+
+.foot-title {
+    color: white;
+    padding: 10px 10px;
+    border-radius: 20px;
+}
+
+.copyright {
+    display: flex;
+    color: white; 
+    justify-content: left;
+    border-top: 5px solid white;
+    padding-top: 5px;
+}
+
+@media screen and (max-width: 760px) {
+
+    h1>.menu-btn {
+        display: block;
+    }
+
+    header {
+        width: 100%;
+        height: 100%;
+    }
+
+    .title {
+        height: 80px;
+        padding-right: 40px;
+        padding-left: 40px;
+        align-items: center;
+    }
+
+    nav {
+        height: 100%;
+    }
+
+
+    .nav-link {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgb(40, 0, 60);
+        margin-top: -1000px;
+        transition: all 0.5s ease;
+        border-left: 10px solid orange;
+    }
+
+    .home {
+        width: 150px;
+        height: 50px;
+        margin: 50px 0;
+    }
+
+
+    .mobile-menu {
+        margin-top: 0px;
+    }
+
+    .nav-link li {
+        margin: auto;
+        width: 100px;
+    }
+}
+@media (max-width: 600px) {
+    form {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    label, input {
+      width: 100%;
+    }
+  }

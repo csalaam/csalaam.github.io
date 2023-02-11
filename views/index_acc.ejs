@@ -5,33 +5,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CASE</title>
-    <link rel="stylesheet" type="text/css" href="/styleuser.css" />
-    <script
-      src="https://kit.fontawesome.com/9fce7a07c3.js"
-      crossorigin="anonymous"
-    ></script>
+    <link rel="stylesheet" type="text/css" href="/index_acc.css" />
+    <script src="https://kit.fontawesome.com/9fce7a07c3.js" crossorigin="anonymous"></script>
   </head>
-  <body>
+    <body>
       <nav>
         <h1 class="title">
-          <a class="case" href="#">CASE</i></a>
+          <a class="case" href="/home">CASE</i></a>
         </h1>
         <ul class="nav-link">
-          <li><a class="home login" href="/logout">Log Out</a></li>
-          <li><a class="home" href="">Cases</a></li>
-          <li class="last_home"><a class="home" href="/support">Support</a></li>
+          <li><a class="home" href="/account"><i class="fa-solid fa-gear"></i></a></li>
+          <li class="last_home"><a class="home" href="/cases"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+          <li><a class="home login" href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a></li>
         </ul>
         <h1><i class="fa-solid fa-suitcase menu-btn"></i></h1>
       </nav>
     <!-- Card Section -->
     <div class="center">
-        <div class="message"><h1 class="speak">SPEAK YOUR MIND!</h1></div>
-    </div>
-    <div class="hero-1-all">
-        <article class="hero-image-1">
+        <div class="message">
+          <% const arr = name.split(" ")
+             for (var i = 0; i < arr.length; i++) {
+                  arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1)
+              }
+                                 
+              const str2 = arr.join(" ")
+              name = str2
+          %>
+          <h1 class="speak">Dashboard</h1>
+          <div class="dashboard">
+            <div class="block1">
+              <h3 class="margin-bottom">Your Viewer Stats</h3>
+              <table class="textblock1">
+                <tr>
+                  <th id="view-hours">Hours Watched</th>
+                  <div class="hours">
+                    <td id="hours">0</td>
+                </div>
+                </tr>
+                <tr>
+                  <th id="viewer-sentiment">Viewer Sentiment</th>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <th id="viewer-contributions">Viewer Contribution</th>
+                  <td>0</td>
+                </tr>
+                </table>
+              </div>
+            <div class="block2">
+              <h3 class="margin-bottom">Your Debater Stats</h3>
+              <table class="textblock2">
+                <tr>
+                  <th id="resolve">Resolutions</th>
+                  <td id="resolved">0</td>
+                </tr>
+                <tr>
+                  <th id="res-rate">Resolution Rate</th>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <th id="chat-sentiment">Avg. Viewership Sentiment</th>
+                  <td>0</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="hero-1-all hidden">
+        <article class="hero-image-1 hidden">
             <div class="hero-container-1">
                 <div class="info">
-                <h1 class="p1">The Logic</h1>
+                <h1 class="p1">You've Taken That Step</h1>
                 <p class="card-1">
                 We raise intelligence and cure the feat of self-awareness existent in
                 every discussion a human has had the privilege to engage in. Every
@@ -43,9 +88,9 @@
                 </p>
             </div>
         </div>
+      </article>
     </div>
-    </article>
-    <article class="hero-image-2">
+    <article class="hero-image-2 hidden">
       <div class="hero-container-2">
           <div class="info">
           <h1 class="p2">Media Repurposed</h1>
@@ -59,9 +104,8 @@
           </p>
       </div>
   </div>
-</div>
-</article>
-  <article class="hero-image-3">
+  </article>
+  <article class="hero-image-3 hidden">
     <div class="hero-container-3">
         <div class="info">
         <h1 class="p3">So... Why?</h1>
@@ -76,14 +120,13 @@
     </div>
     <button class="sched">Schedule A Debate</button>
   </div>
-</div>
-</article>
+  </article>
   <footer>
     <h3 class="foot-title">Coordinated Applicative Science Engine</h3>
     <ul class="footer">
         <li><a class="foot-link" href="#">About</a></li>
-        <li><a class="foot-link" href="#">Cases</a></li>
-        <li><a class="foot-link" href="#">Support</a></li>
+        <li><a class="foot-link" href="/cases">Index</a></li>
+        <li><a class="foot-link" href="/support">Support</a></li>
     </ul>
     <p class="copyright">Cee Allah Salaam</p>
   </footer>
@@ -94,6 +137,21 @@
     menuBtn.addEventListener('click', () => {
       navlink.classList.toggle('mobile-menu')
     })
+
+    const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        console.log(entry)
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show')
+        } else {
+            entry.target.classList.remove('show')
+        }
+    })
+})
+
+const hiddenElements = document.querySelectorAll('.hidden')
+
+hiddenElements.forEach((el) => observer.observe(el))
   </script>
   </body>
 </html>

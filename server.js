@@ -13,17 +13,16 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const User = require('./model/model')
 const mongoose = require('mongoose')
+const searchControl = require('./controller/search')
+const updateControl = require('./controller/update')
 console.log(mongoose.connection.readyState)
 
-
-const initializePassport = require('./passport-config')
+const initializePassport = require('./passport-config');
 initializePassport(
     passport,
     email => User.findOne({ email: email }).exec(),
     id => User.findById(id)
     )
-
-const users = [] /* the database spot */
 
 app.use(express.json())
 
@@ -53,6 +52,16 @@ app.get('/home', checkAuthenticated, (req, res) => {
 app.get('/support', (req, res) => {
     res.render('support.ejs')
 })
+
+app.get('/account', (req, res) => {
+    res.render('account.ejs')
+})
+
+app.get('/changePass', (req, res) => {
+    res.render("changePass.ejs", {message: ''})
+})
+
+app.post('/changePass', updateControl.update)
 
 app.get('/register', (req, res) => {
     res.render('register.ejs')
@@ -85,13 +94,16 @@ app.post('/login', notAuthenticated, passport.authenticate('local', {
     failureFlash: true
 }))
 
+app.get('/cases', searchControl.search)
+
 app.get('/logout', (req, res) => {
     req.logout((err)=>{
+        if(err) {
+            return res.status(500).send({error: 'Error while logging out'})
+        }
         res.redirect('/')
     })
 })
-
-
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {

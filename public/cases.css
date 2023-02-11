@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri&family=Inconsolata&family=Source+Serif+Pro&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Serif Pro', sans-serif;
+}
+
+body, html {
+    background-color: rgb(125, 0, 255);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header{
+    height: 7%;
+    width: 100%;
+}
+
+/* Navigation Pane */
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 100%;
+    letter-spacing: 9px;
+    font-size: 30px;
+}
+
+h1>.menu-btn {
+    display: none;
+}
+
+.case:link, .case:hover,
+.case:visited  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(242, 175, 98);
+}
+
+i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgb(242, 175, 98);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    background-color: purple;
+}
+
+.nav-link{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+
+}
+
+li {
+    width: 25%;
+    padding: 10px 15px;
+}
+
+.user-section { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0; 
+    width: 100%;
+}
+
+.home {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 125px;
+    height: 30px;
+    font-weight:bolder;
+    letter-spacing: 5px;
+    border-radius: 50px;
+}
+
+.home>i {
+    font-size: 32px;
+}
+
+.menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    font-size: 32px;
+    cursor: pointer;
+    display: none;
+}
+
+.users {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    list-style-type: none;
+    margin-top: 50px;
+}
+
+.user-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    background-color: rgb(40, 0, 60);
+    border-bottom: 5px solid black;
+}
+
+.search {
+    display: flex;
+    width: 50%;
+    height: 50px;
+    background-color: rgb(40, 0, 120);
+}
+
+#searchbar {
+    display: flex;
+    padding: 0 20px;
+    border-radius: 50px;
+    border-color: white;
+    color: black;
+    width: 500px;
+    height: 50px;
+    background-color: white;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+    padding: 30px 0;
+    padding-bottom: 30px;
+    background-color: rgb(125, 0, 255);
+}
+
+.form-submit {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    width: 150px;
+    height: 50px;
+    border-radius: 50px;
+    margin-left: 50px;
+}
+
+.index-title {
+    color: black;
+    background-color: orange;
+    padding-top: 10px;
+}
+
+.username {
+    display: flex;
+    color: black;
+    width: 400px;
+    background-color: orange;
+    justify-content: center;
+}
+
+.description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-bottom: 50px;
+    height: 50px;
+    width: 400px;
+    border-top: 5px solid purple;
+    background-color: black;
+}
+
+h2>.name {
+    color: orange;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-top: 3px solid orange;
+    background-color: black;
+    height: 200px;
+    width: 100%;
+}
+
+.foot-link {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: orange;
+    height: 100%;
+    width: 100px;
+    border-radius: 50px;
+}
+
+.foot-title {
+    color: white;
+    padding: 10px 10px;
+    border-radius: 20px;
+}
+
+.copyright {
+    display: flex;
+    color: white; 
+    justify-content: left;
+    border-top: 5px solid white;
+    padding-top: 5px;
+}
+
+@media screen and (max-width: 760px) {
+
+    h1>.menu-btn {
+        display: block;
+    }
+
+    header {
+        width: 100%;
+        height: 100%;
+    }
+
+    .title {
+        height: 80px;
+        padding-right: 40px;
+        padding-left: 40px;
+        align-items: center;
+    }
+
+    nav {
+        height: 100%;
+    }
+
+
+    .nav-link {
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        background: rgb(40, 0, 60);
+        margin-top: -1000px;
+        transition: all 0.5s ease;
+        border-left: 10px solid orange;
+    }
+
+    .home {
+        width: 150px;
+        height: 50px;
+    }
+
+    .mobile-menu {
+        margin-top: 0px;
+        }
+
+    .nav-link li {
+        margin: auto;
+        width: 100px;
+    }
+
+    .card-1 {
+        margin: auto;
+        display: block;
+        color: white;
+        border-left: none;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 30px;
+    }
+
+    .card-2 {
+        margin: auto;
+        display: block;
+        color: white;
+        border-left: none;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 30px;
+    }
+    .card-3 {
+        margin: auto;
+        color: white;
+        display: block;
+        border-left: none;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 30px;
+    }
+
+    .home {
+        margin: 50px 0;
+    }
+
+    .hero-container-1 .info h1 {
+        border-left: none;
+        font-size: 3rem;
+    }
+
+    .hero-container-2 .info h1 {
+        border-left: none;
+        margin: 0;
+        padding: 0;
+        font-size: 3rem;
+    }
+
+    .hero-container-3 .info h1 {
+        border-left: none;
+        margin: 0;
+        padding: 0;
+        font-size: 3rem;
+    }
+
+    .hero-container-1 {
+        border-radius: 10px;
+    }
+
+}
