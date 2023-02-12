@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us!</title>
+    <link rel="stylesheet" type="text/css" href="/support.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9fce7a07c3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav>
+        <h1 class="title">
+          <a class="case" href="/home">CASE</i></a>
+        </h1>
+        <ul class="nav-link">
+          <li class="last_home"><a class="home" href="/account">Account</a></li>
+          <li><a class="home" href="/cases">Index</a></li>
+          <li><a class="home login" href="/logout">Log Out</a></li>
+        </ul>
+        <h1><i class="fa-solid fa-suitcase menu-btn"></i></h1>
+      </nav>
+    <div class="hero"> 
+        <form action="/accepted" method="POST">
+            <div class="row">
+            <div class="input-group">
+                <input required type="text" id="name" name="name" >
+                <label for="name"><i class="fa-solid fa-user"></i> Your Name</label>
+            </div>
+            <div class="input-group">
+                <input required type="text" id="number" name="number" >
+                <label for="number"><i class="fa-solid fa-square-phone"></i> Phone Number</label> 
+            </div>
+            </div>
+            <div class="input-group">
+                <input required type="text" id="email" name="email" >
+                <label for="email"><i class="fa-solid fa-at"></i> Email Address</label>
+            </div>
+            <div class="input-group">
+                <textarea required type="text" id="message" name ="message" rows="8"></textarea>
+                <label for="message"><i class="fa-solid fa-message"></i> Your Message</label>
+            </div>
+            <button type="submit">SUBMIT <i class="fa-solid fa-paper-plane"></i></button>
+
+        </form>
+
+    </div>
+</body>
+</html>
