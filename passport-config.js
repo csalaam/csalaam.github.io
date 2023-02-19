@@ -13,10 +13,6 @@ function initialize(passport, getUserByEmail, getUserById) {
             return done(null, false, {message: 'You are not an admin'})
         }
 
-        if (user.passcode !== 'abc') {
-            return done(null, false, {message: 'Passcode incorrect'})
-        }
-
         try {
             if (await bcrypt.compare(password, user.password)) {
                 return done(null, user)

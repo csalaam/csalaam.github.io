@@ -15,7 +15,6 @@ const User = require('./model/model')
 const mongoose = require('mongoose')
 const searchControl = require('./controller/search')
 const updateControl = require('./controller/update')
-const crudControl = require('./controller/crud')
 console.log(mongoose.connection.readyState)
 
 const initializePassport = require('./passport-config');

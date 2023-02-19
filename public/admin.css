@@ -166,7 +166,7 @@ table {
     text-align: center;
   }
 
-  .edit_button:hover {
+  #edit_button:hover {
     color: white;
   }
 
