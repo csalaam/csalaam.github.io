@@ -148,7 +148,7 @@ app.get('/admin', checkAuthenticated, async (req, res) => {
     }
 })
 
-app.get('/admin/search', async (req, res) => {
+app.get('/admin/search', checkAuthenticated, async (req, res) => {
     const q = req.query.q || ''
     const users = await User.find({
         name: { $regex: `.*^${q}.*`, $options: "i"}
@@ -156,20 +156,28 @@ app.get('/admin/search', async (req, res) => {
     res.render("admin_search", { users, q })
 })
 
-app.get('/admin/settings', (req, res) => {
+app.get('/admin/settings', checkAuthenticated, (req, res) => {
     res.render('admin_account.ejs')
 })
 
 app.get('/edit/:userId', checkAuthenticated, async (req, res) => {
     const requestUserId = req.params.userId
-    User.findById(requestUserId, function(err, foundUser) {
-        if (err) {
-            console.log(err)
-    } else {
-        res.render('edit', { user: foundUser, err })
+    try {
+        const foundUser = await User.findById(requestUserId);
+        if (foundUser) {
+          res.render('edit', { user: foundUser, err: null });
+        } else {
+          res.render('edit', { user: null, err: 'User not found' });
         }
-    })
-})
+      } catch (err) {
+        if (err instanceof mongoose.CastError) {
+          res.render('edit', { user: null, err: 'Action Already Satisfied' });
+        } else {
+          console.error(err);
+          res.status(500).send('Internal server error');
+        }
+      }
+    });
 
 app.post('/edit/:userId', checkAuthenticated, async (req, res) => {
     const users = await User.find({_id: {$ne: req.user._id}})
@@ -177,6 +185,8 @@ app.post('/edit/:userId', checkAuthenticated, async (req, res) => {
     const newAdmin = req.body.admin
     User.findByIdAndUpdate(requestedUserId, {admin: newAdmin}, function(err, foundUser) {
         if (err) {
+            err = 'Error updating user'
+
             res.redirect('/edit/:userId')
         } else {
             res.redirect('/admin')

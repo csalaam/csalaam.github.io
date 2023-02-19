@@ -14,23 +14,36 @@
           <a class="case" href="/">CASE</i></a>
         </h1>
         <ul class="nav-link">
-          <li class="last_home"><a class="home" href="/"><i alt="about" class="fa-solid fa-users"></i></a></li>
-          <li><a class="home login" href="/login"><i class="fa-solid fa-right-to-bracket"></i></a></li>
-
+          <li class="last_home"><a class="home" href="/admin"><i class="fa-solid fa-house"></i></a></li>
+          <li><a class="home" href="/admin/search"><i class="fa-brands fa-searchengin"></i></a></li>
+          <li><a class="home login" href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a></li>
         </ul>
         <h1><i class="fa-solid fa-suitcase menu-btn"></i></h1>
       </nav>
-      <h1>Edit User</h1>
-      <% if (err) { %>
-    <span style="font-size: 36px; color: white; background-color: black;"><%= err %></span>
-    <% } %>
-      <form action="/edit/<%= user._id %>" method="POST">
-          <div class="box">
-              <label for="admin">User Admin:</label>
-              <input type="checkbox" id="isAdmin" name="admin" <% if (user.admin) { %>checked<% } %>>
-              <button class="update" type="submit">Update</button>
-          </div>
-      </form>
+      <div class="main">
+        <h1 style="background-color: orange;">Edit User</h1>
+        <% if (err) { %>
+          <span style="display: flex; justify-content: center; align-items: center; font-size: 36px; color: white; background-color: black; height: 200px; font-weight: bold;"><%= err %></span>
+          <% } %>
+        <% if (user) { %>
+        <form action="/edit/<%= user._id %>" method="POST">
+            <div class="box">
+                <label for="admin">User Admin:</label>
+                <input type="checkbox" id="isAdmin" name="admin" <% if (user.admin) { %>checked<% } %>>
+                <button class="update" type="submit">Update</button>
+            </div>
+        </form>
+        <% } %>
+      </div>
+      <footer>
+        <h3 class="foot-title">Coordinated Applicative Science Engine</h3>
+        <ul class="footer">
+            <li><a class="foot-link" href="#">About</a></li>
+            <li><a class="foot-link" href="/cases">Index</a></li>
+            <li><a class="foot-link" href="/support">Support</a></li>
+        </ul>
+        <p class="copyright">Cee Allah Salaam</p>
+    </footer>
       <script>
         const menuBtn = document.querySelector('.menu-btn')
         const navlink = document.querySelector('.nav-link')

@@ -147,6 +147,7 @@ table {
 
   td:nth-child(odd){
     background-color: rgb(120, 0, 30);
+    color: orange;
   }
 
   td:nth-child(even){
@@ -160,9 +161,13 @@ table {
     width: 100%;
     text-align: left;
     vertical-align: middle;
-    border: 1px solid white;
+    border: 4px solid rgb(242, 175, 98);
     font-size: 20px;
     text-align: center;
+  }
+
+  .edit_button:hover {
+    color: white;
   }
 
 .center {

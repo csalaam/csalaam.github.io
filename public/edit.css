@@ -10,6 +10,7 @@
 body {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 body, html {
@@ -120,13 +121,18 @@ label{
     text-align: left;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
 .box {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: black;
-    margin-top: 50%;
     padding: 5% 0;
 }
 
@@ -140,8 +146,25 @@ input {
 }
 
 .update {
-    width: 200px;
-    height: 100px;
+    width: 100px;
+    height: 25px;
+    background-color: green;
+    color: yellow;
+    font-weight: bold;
+}
+
+.update:hover {
+    background-color: lightgreen;
+    color: black;
+}
+
+.update:active {
+    outline: 7px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.main {
+    min-height: 80vh;
 }
 
 /* Footer */
@@ -153,7 +176,7 @@ footer {
     align-items: center;
     border-top: 3px solid orange;
     background-color: black;
-    height: 200px;
+    height: 100%;
 }
 
 .foot-link {

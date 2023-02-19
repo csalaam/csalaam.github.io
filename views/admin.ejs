@@ -39,7 +39,7 @@
             <tr>
               <td><%= user.email %></td>
               <td><%= user.admin %></td>
-              <td> <a style="color: orange; text-decoration: none;" href="/edit/<%= user._id %>">Edit</a></td>
+              <td> <a style="color: white; text-decoration: underline;" href="/edit/<%= user._id %>">Edit</a></td>
               <td>
                 <form method="POST" action="/delete/<%= user._id %>">
                   <button>Delete</button>
