@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/form_auth.css">
+    <title>Register</title>
+</head>
+<body>
+    <nav>
+        <h1 class="title">
+          <a class="case" href="/home">CASE</i></a>
+        </h1>
+        <h1><i class="fa-solid fa-suitcase menu-btn"></i></h1>
+      </nav>
+    <div class="header">
+        <h1 class="title">Register</h1>
+    </div>
+    <form action="/register_admin" method="POST">
+        <div>
+            <label for="name">
+                Name
+            </label>
+            <input autocomplete="off" type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="email">
+                Email
+            </label>
+            <input autocomplete="off" type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">
+                Password
+            </label>
+            <input autocomplete="off" type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="passcode">
+                Passcode: 
+            </label>
+            <input type="password" autocomplete="off" id="passcode" name="passcode" required>
+        </div>
+        <div class="registerdiv">
+        <button type="submit" class="login">Register as Admin</button>
+        </div>
+    </form>
+    <div class="registerdiv">
+        <a class="reg" href="/login_admin">Back To Login</a>
+    </div>
+</body>
+</html>
+

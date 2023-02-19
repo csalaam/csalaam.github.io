@@ -15,6 +15,7 @@ const User = require('./model/model')
 const mongoose = require('mongoose')
 const searchControl = require('./controller/search')
 const updateControl = require('./controller/update')
+const crudControl = require('./controller/crud')
 console.log(mongoose.connection.readyState)
 
 const initializePassport = require('./passport-config');
@@ -57,11 +58,21 @@ app.get('/account', (req, res) => {
     res.render('account.ejs')
 })
 
+app.get('/admin/account', checkAuthenticated, (req, res) => {
+    res.render('admin_account.ejs')
+})
+
+app.get('/admin/changePass', checkAuthenticated, (req, res) => {
+    res.render('admin_change.ejs', {message: '', email: req.user.email})
+})
+
+app.get('/cases', searchControl.search)
+
 app.get('/changePass', (req, res) => {
     res.render("changePass.ejs", {message: ''})
 })
 
-app.post('/changePass', updateControl.update)
+app.post('/changePass', checkAuthenticated, updateControl.update)
 
 app.get('/register', (req, res) => {
     res.render('register.ejs')
@@ -83,7 +94,6 @@ app.post('/register', notAuthenticated, async (req, res) => {
     }
 })
 
-
 app.get('/login', (req, res) => {
     res.render('login.ejs')
 })
@@ -92,9 +102,98 @@ app.post('/login', notAuthenticated, passport.authenticate('local', {
     successRedirect: '/home',
     failureRedirect: '/login',
     failureFlash: true
+})) 
+
+app.get('/register_admin', (req, res) => {
+    res.render('register_admin.ejs')
+})
+
+
+app.post('/register_admin', notAuthenticated, async (req, res) => {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword,
+            passcode: req.body.passcode,
+            admin: true
+        })
+        await user.save()
+        res.redirect('/login_admin')
+    } catch(err) {
+        console.log(err)
+        res.redirect('/register_admin')
+    }
+})
+
+app.get('/login_admin', (req, res) => {
+    res.render('admin_login.ejs')
+})
+
+app.post('/login_admin', notAuthenticated, passport.authenticate('local', {
+    successRedirect: '/admin',
+    failureRedirect: '/login_admin',
+    failureFlash: true
 }))
 
-app.get('/cases', searchControl.search)
+app.get('/admin', checkAuthenticated, async (req, res) => {
+    console.log('req.session.user',req.user)
+    try {
+        const users = await User.find({_id: {$ne: req.user._id}})
+        res.render('admin', { users, err: '' })
+    } catch (err) { 
+        console.log(err)
+        res.render('admin', { err: 'Error loading users'})
+    }
+})
+
+app.get('/admin/search', async (req, res) => {
+    const q = req.query.q || ''
+    const users = await User.find({
+        name: { $regex: `.*^${q}.*`, $options: "i"}
+    })
+    res.render("admin_search", { users, q })
+})
+
+app.get('/admin/settings', (req, res) => {
+    res.render('admin_account.ejs')
+})
+
+app.get('/edit/:userId', checkAuthenticated, async (req, res) => {
+    const requestUserId = req.params.userId
+    User.findById(requestUserId, function(err, foundUser) {
+        if (err) {
+            console.log(err)
+    } else {
+        res.render('edit', { user: foundUser, err })
+        }
+    })
+})
+
+app.post('/edit/:userId', checkAuthenticated, async (req, res) => {
+    const users = await User.find({_id: {$ne: req.user._id}})
+    const requestedUserId = req.params.userId
+    const newAdmin = req.body.admin
+    User.findByIdAndUpdate(requestedUserId, {admin: newAdmin}, function(err, foundUser) {
+        if (err) {
+            res.redirect('/edit/:userId')
+        } else {
+            res.redirect('/admin')
+        }
+    })
+})
+
+app.post('/delete/:userId', checkAuthenticated, async (req, res) => {
+    const requestedUserId = req.params.userId
+    User.findByIdAndRemove(requestedUserId, function(err) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect('/admin')
+        }
+    })
+})
 
 app.get('/logout', (req, res) => {
     req.logout((err)=>{

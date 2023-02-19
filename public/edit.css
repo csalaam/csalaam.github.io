@@ -1,8 +1,19 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri&family=Inconsolata&family=Source+Serif+Pro&display=swap');
+
+* {
     margin: 0;
     padding: 0;
-    font-family: 'poppins', sans-serif;
     box-sizing: border-box;
+    font-family: 'Source Serif Pro', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+body, html {
+    background-color: rgb(40, 0, 40)
 }
 
 header{
@@ -75,8 +86,8 @@ li {
     border-radius: 50px;
 }
 
-.login {
-    background-color:rgba(10, 200, 0, 0.6);
+.home>i {
+    font-size: 32px;
 }
 
 h1>.menu-btn {
@@ -89,77 +100,90 @@ h1>.menu-btn {
     display: none;
 }
 
-.hero {
-    width:100%;
-    height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0,0.7), #3551b5), url(reaper.jpg);
-    background-position: center;
-    background-size:cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-form{
-    width:90%;
-    max-width: 600px;
-}
-
-.input-group{
-    margin-bottom: 30px;
-    position: relative;
-}
-
-input, textarea{
-    width: 100%;
-    padding: 10px;
-    outline: 0;
-    border: 1px solid #fff;
-    color: #fff;
-    background: transparent;
-    font-size: 15px;
-}
-
+/* Form CSS */
 label{
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 10px;
-    color: #fff;
-    cursor: text;
-    transition: 0.2s;
-}
-
-button{
-    padding: 10px 0;
-    color: #fff;
-    outline: none;
-    background: transparent;
-    border: 1px solid #fff;
-    width: 100%;
-    cursor: pointer;
-}
-
-input:focus~label,
-input:valid~label,
-textarea:focus~label,
-textarea:valid~label{
-    top: -35px;
-    font-size: 14px;
-}
-
-.row{
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+    width: 100px;
+    font-weight: bold;
+    color: black;
+    background-color: orange;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px 20px;
+    margin-bottom: 20px;
 }
 
-.row .input-group{
-    flex-basis: 48%;
+.input {
+    width: 100%;
+    text-align: left;
 }
 
-@media screen and (max-width: 760px) {
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    margin-top: 50%;
+    padding: 5% 0;
+}
+
+input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.update {
+    width: 200px;
+    height: 100px;
+}
+
+/* Footer */
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-top: 3px solid orange;
+    background-color: black;
+    height: 200px;
+}
+
+.foot-link {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: orange;
+    width: 100px;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+
+.foot-title {
+    color: white;
+    padding: 10px 10px;
+    border-radius: 20px;
+}
+
+.copyright {
+    display: flex;
+    color: white; 
+    justify-content: left;
+    border-top: 5px solid white;
+    padding-top: 5px;
+}
+
+
+@media screen and (max-width: 1000px) {
 
     h1>.menu-btn {
         display: block;
@@ -183,13 +207,12 @@ textarea:valid~label{
 
 
     .nav-link {
-        display: flex;
+        flex-direction: column;
         width: 100%;
         height: 100%;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        background: rgb(40, 0, 120);
+        background: rgb(40, 0, 40);
         margin-top: -1000px;
         transition: all 0.5s ease;
         border-left: 10px solid orange;
@@ -198,16 +221,20 @@ textarea:valid~label{
     .home {
         width: 150px;
         height: 50px;
-        margin: 50px 0;
     }
-
 
     .mobile-menu {
         margin-top: 0px;
-    }
+        }
 
     .nav-link li {
         margin: auto;
         width: 100px;
     }
+
+    .home {
+        margin: 50px 0;
+    }
+
+
 }

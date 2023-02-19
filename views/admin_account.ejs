@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CASE</title>
+    <link rel="stylesheet" type="text/css" href="/account.css" />
+    <script src="https://kit.fontawesome.com/9fce7a07c3.js" crossorigin="anonymous"></script>
+  </head>
+    <body>
+      <nav>
+        <h1 class="title">
+          <a class="case" href="/home">CASE</i></a>
+        </h1>
+        <ul class="nav-link">
+          <li class="last_home"><a class="home" href="/admin"><i class="fa-solid fa-house"></i></a></li>
+            <li><a class="home" href="/admin/search"><i class="fa-brands fa-searchengin"></i></a></li>
+            <li><a class="home login" href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a></li>
+        </ul>
+        <h1><i class="fa-solid fa-suitcase menu-btn"></i></h1>
+      </nav>
+    <!-- Card Section -->
+    <div class="center">
+        <div class="message">
+          <h1 class="speak">Account</h1>
+          <div class="dashboard">
+            <form action="/admin/changePass" method="GET">
+                <button type="submit" class="block1">
+                    Change Password
+                </button>
+            </form>
+            <form action="/home" method="GET">
+                <button type="submit" class="block2">
+                    View Stats
+                </button>
+            </form>
+          </div>
+        </div>
+      </div>
+  <footer>
+    <h3 class="foot-title">Coordinated Applicative Science Engine</h3>
+    <ul class="footer">
+        <li><a class="foot-link" href="#">About</a></li>
+        <li><a class="foot-link" href="#">Cases</a></li>
+        <li><a class="foot-link" href="/support">Support</a></li>
+    </ul>
+    <p class="copyright">Cee Allah Salaam</p>
+  </footer>
+  <script>
+    const menuBtn = document.querySelector('.menu-btn')
+    const navlink = document.querySelector('.nav-link')
+
+    menuBtn.addEventListener('click', () => {
+      navlink.classList.toggle('mobile-menu')
+    })
+  </script>
+  </body>
+</html>

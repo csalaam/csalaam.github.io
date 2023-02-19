@@ -33,6 +33,16 @@ const User = new mongoose.Schema({
         type: Date, 
         default: Date.now 
     },
+    admin: {
+        type: Boolean,
+        default: false,
+        required: true,
+    },
+    passcode: {
+        type: String,
+        required: true,
+        default: null,
+    },
     viewersentiment: { 
         type: Number, 
         default: 0,
@@ -59,9 +69,13 @@ const User = new mongoose.Schema({
     }
 })
 
+
+
 User.methods.isSamePassword = function(password) {
     return bcrypt.compareSync(password, this.password);
-  };
+  }
+
+UserModel = mongoose.model('User', User)
 
 User.index({ name: "text"})
 module.exports = mongoose.model('User', User)
