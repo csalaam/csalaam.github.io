@@ -15,6 +15,9 @@ const User = require('./model/model')
 const mongoose = require('mongoose')
 const searchControl = require('./controller/search')
 const updateControl = require('./controller/update')
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+
 console.log(mongoose.connection.readyState)
 
 const initializePassport = require('./passport-config');
@@ -25,10 +28,17 @@ initializePassport(
     )
 
 app.use(express.json())
+app.use('/socket.io', (req, res, next) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    next();
+  });
+  
+  // Serve the socket.io.js file
+app.use('/socket.io', express.static(__dirname + '/node_modules/socket.io/client-dist'));
 
 app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 app.use(flash())
@@ -41,7 +51,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
-app.get('/', (req, res) => {
+const rooms = { }
+
+app.get('/', notAuthenticated, (req, res) => {
     res.render('index.ejs')
 })
 
@@ -49,11 +61,39 @@ app.get('/home', checkAuthenticated, (req, res) => {
     res.render('index_acc.ejs', { name: req.user.name })
 })
 
-app.get('/support', (req, res) => {
+app.get('/home/rooms', checkAuthenticated, (req, res) => {
+    res.render('joinRoom', { rooms: rooms, name: req.user.name })
+})
+
+app.post('/home/room', checkAuthenticated, (req, res) => {
+    if (rooms[req.body.room] != null) {
+        return res.redirect('/')
+    }
+
+    rooms[req.body.room] = { users: {} }
+    res.redirect(req.body.room)
+    io.emit('room-created', req.body.room)
+}) 
+
+app.get('/home/:room', checkAuthenticated, (req, res) => {
+    if (rooms[req.params.room] == null) {
+        return res.redirect('/')
+    }
+    res.render('room', { roomName: req.params.room, name : req.user.name })
+})
+
+function getUserRooms(socket) {
+    return Object.entries(rooms).reduce((names, [name, room]) => {
+        if (room.users[socket.id] != null) names.push(name)
+        return names
+    }, [])
+}
+
+app.get('/support', checkAuthenticated, (req, res) => {
     res.render('support.ejs')
 })
 
-app.get('/account', (req, res) => {
+app.get('/account', checkAuthenticated, (req, res) => {
     res.render('account.ejs')
 })
 
@@ -65,15 +105,15 @@ app.get('/admin/changePass', checkAuthenticated, (req, res) => {
     res.render('admin_change.ejs', {message: '', email: req.user.email})
 })
 
-app.get('/cases', searchControl.search)
+app.get('/cases', checkAuthenticated, searchControl.search)
 
-app.get('/changePass', (req, res) => {
+app.get('/changePass', checkAuthenticated, (req, res) => {
     res.render("changePass.ejs", {message: ''})
 })
 
 app.post('/changePass', checkAuthenticated, updateControl.update)
 
-app.get('/register', (req, res) => {
+app.get('/register', notAuthenticated, (req, res) => {
     res.render('register.ejs')
 })
 
@@ -93,7 +133,7 @@ app.post('/register', notAuthenticated, async (req, res) => {
     }
 })
 
-app.get('/login', (req, res) => {
+app.get('/login', notAuthenticated, (req, res) => {
     res.render('login.ejs')
 })
 
@@ -103,7 +143,7 @@ app.post('/login', notAuthenticated, passport.authenticate('local', {
     failureFlash: true
 })) 
 
-app.get('/register_admin', (req, res) => {
+app.get('/register_admin', notAuthenticated, (req, res) => {
     res.render('register_admin.ejs')
 })
 
@@ -126,7 +166,7 @@ app.post('/register_admin', notAuthenticated, async (req, res) => {
     }
 })
 
-app.get('/login_admin', (req, res) => {
+app.get('/login_admin', notAuthenticated, (req, res) => {
     res.render('admin_login.ejs')
 })
 
@@ -223,9 +263,26 @@ function checkAuthenticated(req, res, next) {
 
 function notAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-       return res.redirect('/')
+       return res.redirect('/login')
     }
     next()
 }
 
-app.listen(3001)
+server.listen(3001)
+
+io.on('connection', socket => {
+    socket.on('new-user', (room, name) => {
+        socket.join(room)
+        rooms[room].users[socket.id] = name
+        socket.to(room).emit('user-connected', name)
+    })
+    socket.on('send-chat-message', (room, message) => {
+        socket.to(room).emit('chat-message', { message: message, name: rooms[room].users[socket.id] })
+    })
+    socket.on('disconnect', () => {
+        getUserRooms(socket).forEach(room => {
+            socket.to(room).emit('user-disconnected', rooms[room].users[socket.id])
+            delete rooms[room].users[socket.id]
+        })
+    })
+})

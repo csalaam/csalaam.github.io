@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Serif Pro', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+body, html {
+    background-color: rgb(40, 0, 40)
+}
+
+header{
+    height: 7%;
+    width: 100%;
+}
+
+/* Navigation Pane */
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 100%;
+    letter-spacing: 9px;
+    font-size: 30px;
+}
+
+.case:link, .case:hover,
+.case:visited  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(242, 175, 98);
+}
+
+i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgb(242, 175, 98)
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    background-color: purple;
+}
+
+.nav-link{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+
+}
+
+li {
+    width: 25%;
+    padding: 10px 15px;
+}
+
+.home {
+    display: flex;
+    text-decoration: none;
+    color: white;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 125px;
+    height: 30px;
+    font-weight:bolder;
+    letter-spacing: 5px;
+    border-radius: 50px;
+}
+
+.home>i {
+    font-size: 32px;
+}
+
+h1>.menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    font-size: 32px;
+    cursor: pointer;
+    display: none;
+}
+
+#message-container {
+    width: 100%;
+    height: 600px;
+    max-width: 1200px;
+    margin-bottom: 200px;
+    overflow-y: scroll;
+}
+
+#message-container::-webkit-scrollbar {width: 0 !important}
+
+#message-container div {
+    background-color: rgb(242, 175, 98);
+    padding: 5px;
+}
+
+#message-container div:nth-child(2n) {
+    background-color: rgb(242, 152, 0);
+}
+
+#send-container {
+    position: fixed;
+    bottom: 0;
+    background-color: orange;
+    max-width: 1200px;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#message-input {
+    flex-grow: 1;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    margin-right: 20px;
+    padding-left: 10px;
+}
+
+#send-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    margin-right: 20px;
+    margin-left: 10px;
+    background-color: green;
+    border: none;
+    border-radius: 20px;
+}
