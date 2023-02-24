@@ -41,7 +41,7 @@ const User = new mongoose.Schema({
     passcode: {
         type: String,
         required: true,
-        default: null,
+        default: 'hi',
     },
     viewersentiment: { 
         type: Number, 

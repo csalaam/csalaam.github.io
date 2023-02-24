@@ -26,24 +26,26 @@
         <input type="text" name="room" id="input_room" required>
         <button type="submit" id="button_room">New Room</button>
     </form>
-    <h1 style="color: orange; display: flex; ">Rooms</h1>
-    <div id="room-container">
-        <% Object.keys(rooms).forEach(room => { %> 
-        <div id="wrapper">
-            <a id="join" href="/home/<%= room %>">Join</a>
-            <div id="room"><%= room %></div>
+    <div id="container">
+        <h1 style="color: orange; display: flex; ">Rooms</h1>
+        <div id="room-container">
+            <% Object.keys(rooms).forEach(room => { %>
+            <div id="wrapper">
+                <a id="join" href="/home/<%= room %>">Join</a>
+                <div id="room"><%= room %></div>
+            </div>
+            <% }) %>
         </div>
-        <% }) %>
+        <footer>
+            <h3 class="foot-title">Coordinated Applicative Science Engine</h3>
+            <ul class="footer">
+                <li><a class="foot-link" href="#">About</a></li>
+                <li><a class="foot-link" href="/cases">Index</a></li>
+                <li><a class="foot-link" href="/support">Support</a></li>
+            </ul>
+            <p class="copyright">Cee Allah Salaam</p>
+          </footer>
     </div>
-    <footer>
-        <h3 class="foot-title">Coordinated Applicative Science Engine</h3>
-        <ul class="footer">
-            <li><a class="foot-link" href="#">About</a></li>
-            <li><a class="foot-link" href="/cases">Index</a></li>
-            <li><a class="foot-link" href="/support">Support</a></li>
-        </ul>
-        <p class="copyright">Cee Allah Salaam</p>
-      </footer>
     <script>
         const socket = io('http://localhost:3001')
         const messageContainer = document.getElementById('message-container')

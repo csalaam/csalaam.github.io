@@ -21,11 +21,13 @@ const io = require('socket.io')(server)
 console.log(mongoose.connection.readyState)
 
 const initializePassport = require('./passport-config');
+
 initializePassport(
     passport,
     email => User.findOne({ email: email }).exec(),
     id => User.findById(id)
     )
+
 
 app.use(express.json())
 app.use('/socket.io', (req, res, next) => {
@@ -53,7 +55,7 @@ app.use(methodOverride('_method'))
 
 const rooms = { }
 
-app.get('/', notAuthenticated, (req, res) => {
+app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs')
 })
 
@@ -117,7 +119,7 @@ app.get('/register', notAuthenticated, (req, res) => {
     res.render('register.ejs')
 })
 
-app.post('/register', notAuthenticated, async (req, res) => {
+app.post('/register', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = new User({
@@ -133,7 +135,7 @@ app.post('/register', notAuthenticated, async (req, res) => {
     }
 })
 
-app.get('/login', notAuthenticated, (req, res) => {
+app.get('/login', (req, res) => {
     res.render('login.ejs')
 })
 
@@ -257,7 +259,6 @@ function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next()
     }
-
     res.redirect('/login')
 }
 
