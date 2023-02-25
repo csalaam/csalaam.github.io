@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
     <link rel="stylesheet" type="text/css" href="/style_join.css">
-    <script defer src="https://52.41.36.82:3000/socket.io/socket.io.js"></script>
+    <script defer src="https://52.41.36.82:3001/socket.io/socket.io.js"></script>
     <script src="https://kit.fontawesome.com/9fce7a07c3.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -46,7 +46,7 @@
           </footer>
     </div>
     <script>
-        const socket = io('https://52.41.36.82:3000')
+        const socket = io('https://52.41.36.82:3001')
         const messageContainer = document.getElementById('message-container')
         const roomContainer = document.getElementById('room-container')
         const messageForm = document.getElementById('send-container')
