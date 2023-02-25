@@ -113,17 +113,18 @@ h1>.menu-btn {
 #message-container div {
     background-color: rgb(242, 175, 98);
     padding: 5px;
+    width: 100%;
 }
 
 #message-container div:nth-child(2n) {
     background-color: rgb(242, 152, 0);
+    width: 100%;
 }
 
 #send-container {
     position: fixed;
     bottom: 0;
     background-color: orange;
-    max-width: 1200px;
     width: 100%;
     height: 10%;
     display: flex;
