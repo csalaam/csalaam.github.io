@@ -65,7 +65,7 @@ app.get('/home', checkAuthenticated, (req, res) => {
     res.render('index_acc.ejs', { name: req.user.name })
 })
 
-app.get('/home/rooms', checkAuthenticated, (req, res) => {
+app.get('/home/rooms', (req, res) => {
     res.render('joinRoom', { rooms: rooms, name: req.user.name })
 })
 
