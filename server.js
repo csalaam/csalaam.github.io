@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express')
 const app = express();
+const cors = require('cors')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
@@ -37,6 +38,7 @@ app.use('/socket.io', (req, res, next) => {
   
   // Serve the socket.io.js file
 app.use('/socket.io', express.static(__dirname + '/node_modules/socket.io/client-dist'));
+app.use(cors())
 
 app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
@@ -55,7 +57,7 @@ app.use(methodOverride('_method'))
 
 const rooms = { }
 
-app.get('/', (req, res) => {
+app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs')
 })
 
