@@ -55,7 +55,7 @@ app.use(methodOverride('_method'))
 
 const rooms = { }
 
-app.get('/', checkAuthenticated, (req, res) => {
+app.get('/', (req, res) => {
     res.render('index.ejs')
 })
 
@@ -69,7 +69,7 @@ app.get('/home/rooms', checkAuthenticated, (req, res) => {
 
 app.post('/home/room', checkAuthenticated, (req, res) => {
     if (rooms[req.body.room] != null) {
-        return res.redirect('/')
+        return res.redirect('/home')
     }
 
     rooms[req.body.room] = { users: {} }
@@ -79,7 +79,7 @@ app.post('/home/room', checkAuthenticated, (req, res) => {
 
 app.get('/home/:room', checkAuthenticated, (req, res) => {
     if (rooms[req.params.room] == null) {
-        return res.redirect('/')
+        return res.redirect('/home')
     }
     res.render('room', { roomName: req.params.room, name : req.user.name })
 })
@@ -119,7 +119,7 @@ app.get('/register', notAuthenticated, (req, res) => {
     res.render('register.ejs')
 })
 
-app.post('/register', async (req, res) => {
+app.post('/register', notAuthenticated, async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = new User({
@@ -135,7 +135,7 @@ app.post('/register', async (req, res) => {
     }
 })
 
-app.get('/login', (req, res) => {
+app.get('/login', notAuthenticated, (req, res) => {
     res.render('login.ejs')
 })
 
@@ -251,7 +251,7 @@ app.get('/logout', (req, res) => {
         if(err) {
             return res.status(500).send({error: 'Error while logging out'})
         }
-        res.redirect('/')
+        res.redirect('/login')
     })
 })
 
@@ -264,9 +264,9 @@ function checkAuthenticated(req, res, next) {
 
 function notAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-       return res.redirect('/login')
+       return res.redirect('/home')
     }
-    next()
+    return next()
 }
 
 server.listen(3001)
