@@ -17,6 +17,11 @@
     <div class="header">
         <h1 class="title">Register</h1>
     </div>
+    <div class="error">
+        <% if (message) { %> 
+            <%= message %> 
+            <% } %> 
+        </div>
     <form action="/register_admin" method="POST">
         <div>
             <label for="name">

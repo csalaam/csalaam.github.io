@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
+
 const express = require('express')
 const app = express();
 const cors = require('cors')
@@ -18,6 +19,7 @@ const searchControl = require('./controller/search')
 const updateControl = require('./controller/update')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
 console.log(mongoose.connection.readyState)
 
@@ -56,6 +58,77 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 const rooms = { }
+
+app.get('/register', notAuthenticated, (req, res) => {
+    res.render('register.ejs')
+})
+
+app.post('/register', notAuthenticated, async (req, res) => {
+    try {
+        if (!passwordRegex.test(req.body.password)) {
+            message = "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one digit, and one special character."
+            res.render('register', {message})
+        } else {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword,
+        })
+        await user.save()
+        res.redirect('/login')
+        }
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+app.get('/login', notAuthenticated, (req, res) => {
+    res.render('login.ejs')
+})
+
+app.post('/login', notAuthenticated, passport.authenticate('local', {
+    successRedirect: '/home',
+    failureRedirect: '/login',
+    failureFlash: true
+})) 
+
+app.get('/register_admin', notAuthenticated, (req, res) => {
+    res.render('register_admin.ejs')
+})
+
+
+app.post('/register_admin', notAuthenticated, async (req, res) => {
+    try {
+        if (!passwordRegex.test(req.body.password) || (req.body.passcode !== 'hi')) {
+            message = "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one digit, and one special character. Or wrong passcode."
+            res.render('register_admin', {message})
+        } else {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword,
+            passcode: req.body.passcode,
+            admin: true
+        })
+        await user.save()
+        res.redirect('/login_admin')
+        }
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+app.get('/login_admin', notAuthenticated, (req, res) => {
+    res.render('admin_login.ejs')
+})
+
+app.post('/login_admin', notAuthenticated, passport.authenticate('local', {
+    successRedirect: '/admin',
+    failureRedirect: '/login_admin',
+    failureFlash: true
+}))
 
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs')
@@ -117,68 +190,6 @@ app.get('/changePass', checkAuthenticated, (req, res) => {
 
 app.post('/changePass', checkAuthenticated, updateControl.update)
 
-app.get('/register', notAuthenticated, (req, res) => {
-    res.render('register.ejs')
-})
-
-app.post('/register', notAuthenticated, async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPassword,
-        })
-        await user.save()
-        res.redirect('/login')
-    } catch(err) {
-        console.log(err)
-        res.redirect('/register')
-    }
-})
-
-app.get('/login', notAuthenticated, (req, res) => {
-    res.render('login.ejs')
-})
-
-app.post('/login', notAuthenticated, passport.authenticate('local', {
-    successRedirect: '/home',
-    failureRedirect: '/login',
-    failureFlash: true
-})) 
-
-app.get('/register_admin', notAuthenticated, (req, res) => {
-    res.render('register_admin.ejs')
-})
-
-
-app.post('/register_admin', notAuthenticated, async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPassword,
-            passcode: req.body.passcode,
-            admin: true
-        })
-        await user.save()
-        res.redirect('/login_admin')
-    } catch(err) {
-        console.log(err)
-        res.redirect('/register_admin')
-    }
-})
-
-app.get('/login_admin', notAuthenticated, (req, res) => {
-    res.render('admin_login.ejs')
-})
-
-app.post('/login_admin', notAuthenticated, passport.authenticate('local', {
-    successRedirect: '/admin',
-    failureRedirect: '/login_admin',
-    failureFlash: true
-}))
 
 app.get('/admin', checkAuthenticated, async (req, res) => {
     console.log('req.session.user',req.user)
