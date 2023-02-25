@@ -8,6 +8,7 @@ const app = express();
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
+const localStrategy = require('passport-local').Strategy
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
@@ -19,18 +20,45 @@ const searchControl = require('./controller/search')
 const updateControl = require('./controller/update')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+const pass = require('./passport-config')
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
+const localStrategyAdmin = new localStrategy({ usernameField: 'email' }, async (email, password, done) => {
+    const user = await User.findOne({ email: email })
+    if (!user) {
+        return done(null, false, {message: 'No user with that email'})
+    }
+
+    if (!user.admin || user.passcode !== 'hi') {
+        return done(null, false, {message: 'You are not an admin'})
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
+        return done(null, user)
+    } else {
+        return done(null, false, {message: 'Password incorrect'})
+    }
+    
+})
+
+const localStrategyRegular = new localStrategy({ usernameField: 'email' }, async (email, password, done) => {
+    const user = await User.findOne({ email: email })
+    if (!user) {
+        return done(null, false, {message: 'No user with that email'})
+    }
+
+    if (user.adminAtmpt) {
+        return done(null, false, {message: 'You are not an admin'})
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
+        return done(null, user)
+    } else {
+        return done(null, false, {message: 'Password incorrect'})
+    }
+})
+
 console.log(mongoose.connection.readyState)
-
-const initializePassport = require('./passport-config');
-
-initializePassport(
-    passport,
-    email => User.findOne({ email: email }).exec(),
-    id => User.findById(id)
-    )
-
 
 app.use(express.json())
 app.use('/socket.io', (req, res, next) => {
@@ -55,12 +83,29 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+
+passport.serializeUser((user, done) => {
+    done(null, user.id)
+  })
+  
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await User.findById(id)
+      done(null, user)
+    } catch (error) {
+      done(error, null)
+    }
+  })
 app.use(methodOverride('_method'))
+
+passport.use('admin', localStrategyAdmin)
+passport.use('regular', localStrategyRegular)
 
 const rooms = { }
 
 app.get('/register', notAuthenticated, (req, res) => {
-    res.render('register.ejs')
+    let message
+    res.render('register.ejs', {message})
 })
 
 app.post('/register', notAuthenticated, async (req, res) => {
@@ -87,14 +132,15 @@ app.get('/login', notAuthenticated, (req, res) => {
     res.render('login.ejs')
 })
 
-app.post('/login', notAuthenticated, passport.authenticate('local', {
+app.post('/login', notAuthenticated, passport.authenticate('regular', {
     successRedirect: '/home',
     failureRedirect: '/login',
     failureFlash: true
 })) 
 
 app.get('/register_admin', notAuthenticated, (req, res) => {
-    res.render('register_admin.ejs')
+    let message
+    res.render('register_admin.ejs', {message})
 })
 
 
@@ -110,7 +156,8 @@ app.post('/register_admin', notAuthenticated, async (req, res) => {
             email: req.body.email,
             password: hashedPassword,
             passcode: req.body.passcode,
-            admin: true
+            admin: true,
+            adminAtmpt: true,
         })
         await user.save()
         res.redirect('/login_admin')
@@ -124,7 +171,7 @@ app.get('/login_admin', notAuthenticated, (req, res) => {
     res.render('admin_login.ejs')
 })
 
-app.post('/login_admin', notAuthenticated, passport.authenticate('local', {
+app.post('/login_admin', notAuthenticated, passport.authenticate('admin', {
     successRedirect: '/admin',
     failureRedirect: '/login_admin',
     failureFlash: true
