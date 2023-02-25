@@ -10,7 +10,7 @@
     <script>
         const roomName = "<%= roomName %>"
     </script>
-    <script src="https://case-repo.onrender.com/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
     <nav>
@@ -31,7 +31,7 @@
         <input type="text" id="message-input">
     </form>
     <script>
-    const socket = io('https://case-repo.onrender.com')
+    const socket = io()
     const messageContainer = document.getElementById('message-container')
     const roomContainer = document.getElementById('room-container')
     const messageForm = document.getElementById('send-container')
