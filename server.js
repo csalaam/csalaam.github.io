@@ -71,7 +71,7 @@ app.get('/home/rooms', checkAuthenticated, (req, res) => {
 
 app.post('/home/room', checkAuthenticated, (req, res) => {
     if (rooms[req.body.room] != null) {
-        return res.redirect('/home')
+        return res.redirect('/home/room')
     }
 
     rooms[req.body.room] = { users: {} }
@@ -81,7 +81,7 @@ app.post('/home/room', checkAuthenticated, (req, res) => {
 
 app.get('/home/:room', checkAuthenticated, (req, res) => {
     if (rooms[req.params.room] == null) {
-        return res.redirect('/home')
+        return res.redirect('/home/room')
     }
     res.render('room', { roomName: req.params.room, name : req.user.name })
 })
