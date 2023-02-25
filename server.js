@@ -20,7 +20,6 @@ const searchControl = require('./controller/search')
 const updateControl = require('./controller/update')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
-const pass = require('./passport-config')
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
 const localStrategyAdmin = new localStrategy({ usernameField: 'email' }, async (email, password, done) => {
