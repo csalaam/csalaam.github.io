@@ -43,6 +43,10 @@ const User = new mongoose.Schema({
         required: true,
         default: 'hi',
     },
+    adminAtmpt: {
+        type: Boolean,
+        default: 'false'
+    },
     viewersentiment: { 
         type: Number, 
         default: 0,
